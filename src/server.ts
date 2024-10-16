@@ -1,17 +1,25 @@
 import express, { Request, Response } from "express";
 import { PrismaClient } from '@prisma/client'
+import swaggerUi from "swagger-ui-express";
+import clientModule from "./modules/client.module";
+import swagger from "./utils/swagger";
 
 export const prisma = new PrismaClient();
 
 const app = express();
 const port = 8080;
 
+
 async function main() {
+  
   app.use(express.json());
+  app.use('/api', swaggerUi.serve, swaggerUi.setup(swagger));
 
-  // Register API routes
 
-  // Catch unregistered routes
+  // Routes
+  app.use(clientModule.router);
+
+
   app.all("*", (req: Request, res: Response) => {
     res.status(404).json({ error: `Route ${req.originalUrl} not found` });
   });
