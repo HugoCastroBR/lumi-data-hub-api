@@ -7,15 +7,17 @@ import healthCheck from "./routes/health.router";
 import clientModule from "./modules/client.module";
 import ucModule from "./modules/uc.module";
 import billModule from "./modules/bill.module";
+import multer from "multer";
+
+
 
 
 export const prisma = new PrismaClient();
 
 const app:Application = express();
 
-
-
 app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swagger));
 app.use('/health', healthCheck);
 
@@ -24,6 +26,7 @@ app.use(billModule.router)
 app.use(clientModule.router);
 app.use(ucModule.router);
 app.use(healthCheck);
+
 
 
 app.all("*", (req: Request, res: Response) => {

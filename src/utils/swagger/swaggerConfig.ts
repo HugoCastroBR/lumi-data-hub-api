@@ -78,6 +78,8 @@
      *     Bill:
      *       type: object
      *       properties:
+     *         ucId:
+     *           type: integer
      *         month:
      *           type: integer
      *         year:
@@ -332,16 +334,19 @@
      *   post:
      *     tags: [Bill]
      *     summary: Create a new Bill
-     *     responses:
-     *       201:
-     *         description: Successful creation
-     *       409:
-     *         description: UC Already Exist
      *     requestBody:
+     *       required: true
      *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/Bill'
+     *         multipart/form-data:
+     *              schema:
+     *                   type: object
+     *                   properties:
+     *                        file:
+     *                             type: string
+     *                             format: binary
+     *     responses:
+     *       200:
+     *         description: A successful response
      * /bills/{id}:
      *   get:
      *     tags: [Bill]

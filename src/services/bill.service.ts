@@ -8,7 +8,7 @@ class BillService {
   async getAllBills() {
     const bills = await prisma.bill.findMany({
       include: {
-        uc: true // Include related UC data
+        uc: true 
       }
     });
     return bills;
@@ -21,12 +21,12 @@ class BillService {
           id: id
         },
         include: {
-          uc: true // Include related UC data
+          uc: true 
         }
       });
       return bill;
     } catch (error) {
-      return null; // Return null if not found
+      return null; 
     }
   }
 
@@ -43,13 +43,13 @@ class BillService {
           electricityCompensated: bill.electricityCompensated,
           electricityCompensatedCost: bill.electricityCompensatedCost,
           electricityPublicCost: bill.electricityPublicCost,
-          ucId: bill.ucId, // Associate with a UC
+          ucId: bill.ucId, 
         },
       });
-      return newBill; // Return the created entry for further use if needed
+      return newBill; 
     } catch (error) {
       console.error('Error creating Bill:', error);
-      throw new Error('Could not create Bill'); // Throw a more user-friendly error
+      throw new Error('Could not create Bill'); 
     }
   }
 
@@ -74,12 +74,12 @@ class BillService {
           electricityCompensated: bill.electricityCompensated,
           electricityCompensatedCost: bill.electricityCompensatedCost,
           electricityPublicCost: bill.electricityPublicCost,
-          ucId: bill.ucId, // Update UC association if necessary
+          ucId: bill.ucId, 
         },
       });
-      return updatedBill; // Return the updated entry for further use if needed
+      return updatedBill; 
     } catch (error) {
-      throw new Error('Could not update Bill'); // Throw a more user-friendly error
+      throw new Error('Could not update Bill'); 
     }
   }
 
@@ -97,7 +97,7 @@ class BillService {
       });
     } catch (error) {
       console.error('Error deleting Bill:', error);
-      throw new Error('Could not delete Bill'); // Throw a more user-friendly error
+      throw new Error('Could not delete Bill'); 
     }
   }
 
