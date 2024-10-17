@@ -31,17 +31,30 @@ model Bill {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime? 
 
   client Client @relation(fields: [clientId], references: [id])
-  clientId Int
+  clientId Int 
 }
 
 model Client {
-  id        Int      @id @unique
-  clientUC Int      @unique
+  id        Int     @id @unique
   name      String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 
   bills Bill[]
+  uc UC[]
+}
+
+model UC {
+  id        Int     @id @unique
+  client Client @relation(fields: [clientId], references: [id])
+  clientId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
