@@ -33,8 +33,9 @@ model Bill {
   updatedAt DateTime @updatedAt
   deletedAt DateTime? 
 
-  client Client @relation(fields: [clientId], references: [id])
-  clientId Int 
+  uc UC @relation(fields: [ucId], references: [id])
+  ucId Int
+  
 }
 
 model Client {
@@ -45,16 +46,20 @@ model Client {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 
-  bills Bill[]
-  uc UC[]
+  ucs UC[]
 }
 
 model UC {
   id        Int     @id @unique
-  client Client @relation(fields: [clientId], references: [id])
-  clientId Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+
+  client Client @relation(fields: [clientId], references: [id])
+  clientId Int
+
+  bills Bill[]
 }
+
+

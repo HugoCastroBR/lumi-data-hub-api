@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only --exit-child src/server.ts",
+    "dev": "nodemon src/server.ts",
     "test": "jest --coverage",
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"

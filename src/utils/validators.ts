@@ -5,7 +5,7 @@ const verifyIfClientIsValid = (client: IClient) => {
   expect(client.name).toBeDefined();
   expect(client.createdAt).toBeDefined();
   expect(client.updatedAt).toBeDefined();
-  expect(client.bills).toBeDefined();
+  expect(client.ucs).toBeDefined();
 };
 
 export {verifyIfClientIsValid};

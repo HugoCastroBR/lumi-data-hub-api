@@ -5,6 +5,7 @@ export interface IUC {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
+  bills?: IBill[];
 }
 
 export interface IClient {
@@ -13,8 +14,7 @@ export interface IClient {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-  bills?: IBill[];
-  uc?: IUC[];
+  ucs?: IUC[];
 }
 
 
@@ -32,7 +32,7 @@ export interface IBill {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-  clientId: number;
-  client?: IClient;
+  uc: IUC;
+  ucId: number;
 }
 
