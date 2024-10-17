@@ -6,6 +6,17 @@ type billServiceType = InstanceType<typeof BillService>;
 class BillController {
   private billService: billServiceType;
 
+  readBill = async (req: Request, res: Response) => {
+    
+    if(req.file == undefined){
+      res.status(201).send(req.file);
+    }else{
+      const filePath = `${req.file.path}\\${req.file.filename}`;
+      res.status(201).send(filePath);
+    }
+    
+  }
+
   constructor(billService: billServiceType) {
     this.billService = billService;
   }

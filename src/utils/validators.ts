@@ -22,6 +22,8 @@ const verifyIfBillIsValid = (bill: IBill) => {
   expect(bill.id).toBeDefined();
   expect(bill.month).toBeDefined();
   expect(bill.year).toBeDefined();
+
+  expect(bill.filename).toBeDefined
   
   expect(bill.electricity).toBeDefined();
   expect(bill.electricityCost).toBeDefined();

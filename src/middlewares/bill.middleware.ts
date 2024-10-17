@@ -1,6 +1,7 @@
 import { validateOrReject } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
 import { CreateBillValidationSchema, UpdateBillValidationSchema } from '../utils/validation/bill.schema'; 
+import multer from 'multer';
 
 export const createBillValidator = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.body) {
@@ -65,4 +66,52 @@ export const updateBillValidator = async (req: Request, res: Response, next: Nex
     }
   }
 };
+
+// export const uploadBill = (req:Request,res:Response,next:NextFunction) => {
+//   try {
+//     console.log(req.file)
+//     if(!req.file){
+//        return res.status(400).json({error: 'File not found'})
+//     }else{
+//       const uploadedFile = req.file;
+//       const fileName = uploadedFile.originalname;
+//       const filePath = uploadedFile.path;
+//       return res.status(200).send({message:"Success"})
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     return res.status(400).send({message:error})
+//   }
+  
+// }
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'data/uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+export const uploadBill = (req:Request,res:Response,next:NextFunction) => {
+  upload.single('file')(req, res, (err) => {
+    try {
+      console.log(req.file)
+      if(!req.file){
+         return res.status(400).json({error: 'File not found'})
+      }else{
+        const uploadedFile = req.file;
+        const fileName = uploadedFile.originalname;
+        const filePath = uploadedFile.path;
+        next()
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(400).send({message:error})
+    }
+  })
+}
 

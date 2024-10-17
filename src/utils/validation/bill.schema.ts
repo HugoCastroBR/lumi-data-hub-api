@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsOptional, Min, IsDecimal } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional, Min, IsDecimal, IsString } from "class-validator";
 import { PartialBill } from "../types/models"; // Adjust the import path as needed
 
 export class CreateBillValidationSchema implements PartialBill {
@@ -10,6 +10,10 @@ export class CreateBillValidationSchema implements PartialBill {
   @IsInt()
   @Min(2000) // Assuming the year should be at least 2000
   year!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  filename!:string
 
   @IsDecimal({ decimal_digits: '0,2' }, { message: 'Must be a decimal number' })
   @IsNotEmpty()

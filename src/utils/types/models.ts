@@ -26,6 +26,7 @@ export interface IBill {
   id: number;
   month: number;
   year: number;
+  filename: string;
   electricity: number;
   electricityCost: number;
   electricityScee: number;

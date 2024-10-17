@@ -36,6 +36,7 @@ class BillService {
         data: {
           month: bill.month,
           year: bill.year,
+          filename: bill.filename,
           electricity: bill.electricity,
           electricityCost: bill.electricityCost,
           electricityScee: bill.electricityScee,

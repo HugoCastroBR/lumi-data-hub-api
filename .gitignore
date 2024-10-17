@@ -15,3 +15,4 @@ node_modules
 .env
 coverage
 dist
+data/uploads

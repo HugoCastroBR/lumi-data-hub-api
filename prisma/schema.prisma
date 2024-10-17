@@ -18,6 +18,8 @@ model Bill {
   month     Int
   year      Int
 
+  filename String 
+
   electricity Decimal
   electricityCost Decimal
 
