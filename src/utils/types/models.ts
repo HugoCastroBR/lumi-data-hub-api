@@ -7,6 +7,7 @@ export interface IUC {
   updatedAt: Date;
   deletedAt?: Date;
   bills?: IBill[];
+  client?: Partial<IClient>;
 }
 export type PartialUC = Partial<IUC>
 
@@ -18,7 +19,7 @@ export interface IClient {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-  ucs?: IUC[];
+  ucs?: Partial<IUC>[];
 }
 export type PartialClient = Partial<IClient>;
 
@@ -34,11 +35,11 @@ export interface IBill {
   electricityCompensated: number;
   electricityCompensatedCost: number;
   electricityPublicCost: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date;
-  uc: IUC;
-  ucId: number;
+  uc: Partial<IUC>;
+  ucId?: number;
 }
 export type PartialBill = Partial<IBill>;
 

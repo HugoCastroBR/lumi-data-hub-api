@@ -99,7 +99,6 @@ const upload = multer({ storage: storage })
 export const uploadBill = (req:Request,res:Response,next:NextFunction) => {
   upload.single('file')(req, res, (err) => {
     try {
-      console.log(req.file)
       if(!req.file){
          return res.status(400).json({error: 'File not found'})
       }else{

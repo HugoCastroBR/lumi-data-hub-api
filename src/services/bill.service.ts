@@ -44,7 +44,7 @@ class BillService {
           electricityCompensated: bill.electricityCompensated,
           electricityCompensatedCost: bill.electricityCompensatedCost,
           electricityPublicCost: bill.electricityPublicCost,
-          ucId: bill.ucId, 
+          ucId: bill.ucId || 0, 
         },
       });
       return newBill; 

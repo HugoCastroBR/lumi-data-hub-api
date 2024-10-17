@@ -1,5 +1,6 @@
 import BillService from "../services/bill.service"; // Adjust the import path as needed
 import { Request, Response } from "express";
+import { extractDataFromPDF } from "../utils/files";
 
 type billServiceType = InstanceType<typeof BillService>;
 
@@ -11,8 +12,8 @@ class BillController {
     if(req.file == undefined){
       res.status(201).send(req.file);
     }else{
-      const filePath = `${req.file.path}\\${req.file.filename}`;
-      res.status(201).send(filePath);
+      const dataParsed = await extractDataFromPDF(req.file.path);
+      res.status(201).send(dataParsed);
     }
     
   }

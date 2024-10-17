@@ -828,6 +828,11 @@
   dependencies:
     undici-types "~6.19.2"
 
+"@types/pdf-parse@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@types/pdf-parse/-/pdf-parse-1.1.4.tgz"
+  integrity sha512-+gbBHbNCVGGYw1S9lAIIvrHW47UYOhMIFUsJcMkMrzy1Jf0vulBN3XQIjPgnoOXveMuHnF3b57fXROnY/Or7eg==
+
 "@types/qs@*":
   version "6.9.16"
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.16.tgz"
