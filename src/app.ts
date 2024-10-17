@@ -5,6 +5,7 @@ import swagger from "./utils/swagger/swagger";
 
 import healthCheck from "./routes/health.router";
 import clientModule from "./modules/client.module";
+import ucModule from "./modules/uc.module";
 
 
 export const prisma = new PrismaClient();
@@ -19,6 +20,7 @@ app.use('/health', healthCheck);
 
 // Routes
 app.use(clientModule.router);
+app.use(ucModule.router);
 app.use(healthCheck);
 
 

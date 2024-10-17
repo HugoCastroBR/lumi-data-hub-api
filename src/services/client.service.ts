@@ -17,7 +17,6 @@ class ClientService {
         },
       }
     })
-    console.log(clients)
     return clients;
   }
 
@@ -39,16 +38,19 @@ class ClientService {
   }
 
   async createClient(client: IClient) {
+
+    console.log(`create ${client}`)
+
     const clientExists = await prisma.client.findUnique({
       where: {
           registerN: client.registerN // Ensure 'client.registerN' is defined and correct
       }
-  });
+    });
   
     if (clientExists) {
       throw new Error("Client already exists");
     } else{
-      console.log("create")
+      console.log(client)
       const newClient = await prisma.client.create({
         data: {
           registerN: client.registerN,

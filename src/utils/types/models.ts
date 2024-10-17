@@ -41,3 +41,4 @@ export interface IBill {
   ucId: number;
 }
 
+export type PartialUC = Partial<IUC>

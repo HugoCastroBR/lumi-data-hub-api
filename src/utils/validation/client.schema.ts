@@ -1,11 +1,29 @@
-import { IsNotEmpty, IsNumber, Min,Max } from "class-validator";
-import { IClient, PartialClient } from "../types/models";
+import { IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
+import { PartialClient } from "../types/models";
 
-export class CreateClient implements PartialClient {
-  
-  @IsNotEmpty({ message: 'ID cannot be empty' })
-  @IsNumber({}, { message: 'ID must be a valid number' })
-  @Min(0, { message: 'ID must be greater than 0' })
-  @Max(999999999999)
-  id!: number;
+export class CreateClientValidationSchema implements PartialClient {
+
+  @Length(0, 200)
+  @IsNotEmpty()
+  name!: string;
+
+  @Length(8,12)
+  @IsNotEmpty()
+  registerN!: string;
+}
+
+export class UpdateClientValidationSchema extends CreateClientValidationSchema {
+  @Length(0, 200)
+  @IsOptional()
+  name!: string;
+
+  @Length(8,12)
+  @IsOptional()
+  registerN!: string;
+}
+
+export class GetProductIdValidationSchema implements PartialClient {
+  @IsInt()
+  @Min(0)
+  id!:number
 }

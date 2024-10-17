@@ -1,4 +1,4 @@
-import { IClient } from "./types/models";
+import { IClient, IUC } from "./types/models";
 
 const verifyIfClientIsValid = (client: IClient) => {
   expect(client.id).toBeDefined();
@@ -8,4 +8,17 @@ const verifyIfClientIsValid = (client: IClient) => {
   expect(client.ucs).toBeDefined();
 };
 
-export {verifyIfClientIsValid};
+const verifyIfUCIsValid = (uc: IUC) => {
+  expect(uc.id).toBeDefined();
+  expect(uc.registerN).toBeDefined();
+  expect(uc.createdAt).toBeDefined();
+  expect(uc.updatedAt).toBeDefined();
+  expect(uc.clientId).toBeDefined();
+  expect(uc.bills).toBeDefined();
+};
+
+
+export {
+  verifyIfClientIsValid,
+  verifyIfUCIsValid
+};

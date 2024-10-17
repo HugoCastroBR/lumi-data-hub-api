@@ -26,10 +26,13 @@ class ClientController {
   }
 
   createClient = async (req: Request, res: Response) => {
+
+
     const client = req.body;
-    console.log(client)
+    console.log("1")
     try {
       const newClient = await this.clientService.createClient(client);
+      console.log(2)
       res.status(201).send(newClient);
     } catch (error) {
       if(error instanceof Error){
@@ -41,10 +44,17 @@ class ClientController {
       }
     }
   }
-
+  
   updateClient = async (req: Request, res: Response) => {
+    if(!req.body) {
+      return res.status(400).send({
+        message: "Missing request body."
+      })
+    }
+
     const client = req.body;
     const clientId = Number(req.params.id)
+    
     try {
       const updatedClient = await this.clientService.updateClient(clientId,client);
       res.status(200).send(updatedClient);

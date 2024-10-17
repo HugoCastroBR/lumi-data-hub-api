@@ -38,7 +38,7 @@ describe("Client", () => {
       const res = await request(app)
         .post("/clients")
         .send({
-          registerN: "222",
+          registerN: "1234567890",
           name: "Test Client",
         })
         .expect(201);
@@ -54,7 +54,7 @@ describe("Client", () => {
           registerN: "222",
           name: "Test Client",
         })
-        .expect(409);
+        .expect(400);
     })
   });
   
@@ -81,12 +81,12 @@ describe("Client", () => {
       .put(`/clients/${TestingClientID}`)
       .send({
         name: 'Full Test',
-        registerN: "333",
+        registerN: "1234567891",
       })
       .expect(200)
 
       expect(res.body.name).toBe("Full Test")
-      expect(res.body.registerN).toBe("333")
+      expect(res.body.registerN).toBe("1234567891")
     })
 
     it("Should not find a client and update a client", async () => {

@@ -54,6 +54,13 @@
      *     Uc:
      *       type: object
      *       properties:
+     *         clientId:
+     *           type: number
+     *         registerN:
+     *           type: string
+     *     UcFull:
+     *       type: object
+     *       properties:
      *         registerN:
      *           type: string
      *         createdAt:
@@ -184,5 +191,97 @@
      *               type: object
      *       404:
      *         description: Client not found
+     * 
+     * 
+     * 
+     * /ucs:
+     *   get:
+     *     tags: [Uc]
+     *     summary: Returns an array of Ucs
+     *     responses:
+     *       200:
+     *         description: A successful response
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/UcFull'
+     *   post:
+     *     tags: [Uc]
+     *     summary: Create a new Uc
+     *     responses:
+     *       201:
+     *         description: Successful creation
+     *       409:
+     *         description: UC Already Exist
+     *     requestBody:
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Uc'
+     *      
+     * /ucs/{id}:
+     *   get:
+     *     tags: [Uc]
+     *     summary: Returns a uc by id
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       200:
+     *         description: A successful response
+     *         content:
+     *           application/json:
+     *             schema:  
+     *               $ref: '#/components/schemas/UcFull'
+     *       404:
+     *         description: Uc not found
+     * 
+     *   put:
+     *     tags: [Uc]
+     *     summary: Update a Uc
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     requestBody:
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Uc'
+     *     responses:
+     *       200:
+     *         description: Successful update
+     *         content:
+     *           application/json:
+     *             schema: {$ref: '#/components/schemas/UcFull'}
+     *       404:
+     *         description: Uc not found
+     * 
+     *   delete:
+     *     tags: [Uc]
+     *     summary: Delete a Uc
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       204:
+     *         description: No content
+     *         content:
+     *           application/json:
+     *             schema:  
+     *               type: object
+     *       404:
+     *         description: Uc not found
+     * 
      * 
      */
