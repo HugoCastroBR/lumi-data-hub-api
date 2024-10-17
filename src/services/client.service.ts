@@ -39,13 +39,19 @@ class ClientService {
   }
 
   async createClient(client: IClient) {
-    const clientExists = await this.getClientById(client.id);
+    const clientExists = await prisma.client.findUnique({
+      where: {
+          registerN: client.registerN // Ensure 'client.registerN' is defined and correct
+      }
+  });
+  
     if (clientExists) {
       throw new Error("Client already exists");
     } else{
+      console.log("create")
       const newClient = await prisma.client.create({
         data: {
-          id: client.id,
+          registerN: client.registerN,
           name: client.name,
         }
       })
@@ -62,9 +68,9 @@ class ClientService {
           id: clientId,
         },
         data: {
-          id: client.id,
           name: client.name,
           updatedAt: new Date(),
+          registerN: client.registerN
         }
       })
       return updatedClient;

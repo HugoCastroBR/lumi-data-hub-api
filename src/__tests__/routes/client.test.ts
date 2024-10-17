@@ -6,6 +6,9 @@ import { verifyIfClientIsValid } from "../../utils/validators";
 
 
 describe("Client", () => {
+
+  let TestingClientID:number;
+
   describe("Get all clients", () => {
     it("should return a 200 status and JSON content type", async () => {
       const res = await request(app)
@@ -35,19 +38,20 @@ describe("Client", () => {
       const res = await request(app)
         .post("/clients")
         .send({
-          id: 999,
+          registerN: "222",
           name: "Test Client",
         })
         .expect(201);
 
       expect(res.body.name).toBe("Test Client");
+      TestingClientID = res.body.id
     });
 
     it("should not create a new client", async () => {
       const res = await request(app)
         .post("/clients")
         .send({
-          id: 999,
+          registerN: "222",
           name: "Test Client",
         })
         .expect(409);
@@ -61,35 +65,34 @@ describe("Client", () => {
     });
   
     it("should return a 200 status and JSON content type", async () => {
-      const res = await request(app).get("/clients/999").expect(200);
+      const res = await request(app).get(`/clients/${TestingClientID}`).expect(200);
       expect(res.statusCode).toBe(200);
     });
   
     it("should return a specific client", async () => {
-      const res = await request(app).get("/clients/999").expect(200);
-      expect(res.body.id).toBe(999);
+      const res = await request(app).get(`/clients/${TestingClientID}`).expect(200);
+      expect(res.body.id).toBe(TestingClientID);
     });
   });
 
   describe("Update a client with specific id", () => {
     it("Should update a client", async () => {
       const res = await request(app)
-      .put("/clients/999")
+      .put(`/clients/${TestingClientID}`)
       .send({
-        id: 111,
-        name: 'Full Test'
+        name: 'Full Test',
+        registerN: "333",
       })
       .expect(200)
 
       expect(res.body.name).toBe("Full Test")
-      expect(res.body.id).toBe(111)
+      expect(res.body.registerN).toBe("333")
     })
 
     it("Should not find a client and update a client", async () => {
       const res = await request(app)
-      .put("/clients/999")
+      .put(`/clients/123`)
       .send({
-        id: 111,
         name: 'Full Test'
       })
       .expect(404)
@@ -99,12 +102,12 @@ describe("Client", () => {
   describe("Delete a client with specific id", () => {
     it("Should delete a client with specific id", async () => {
       const res = await request(app)
-      .delete("/clients/111")
+      .delete(`/clients/${TestingClientID}`)
       .expect(204)
     })
     it("Should not find and delete a client with specific id", async () => {
       const res = await request(app)
-      .delete("/clients/111")
+      .delete(`/clients/123`)
       .expect(404)
     })
   })

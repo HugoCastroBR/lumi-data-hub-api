@@ -1,6 +1,8 @@
 {
   "exclude": ["./coverage", "./dist", "src/__tests__", "jest.config.js"],
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */

@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Bill {
-  id        Int      @id @default(autoincrement())
+  id        Int @id @default(autoincrement()) 
   month     Int
   year      Int
 
@@ -34,12 +34,13 @@ model Bill {
   deletedAt DateTime? 
 
   uc UC @relation(fields: [ucId], references: [id])
-  ucId Int
+  ucId Int  
   
 }
 
 model Client {
-  id        Int     @id @unique
+  id        Int @id @default(autoincrement()) 
+  registerN String @unique
   name      String
 
   createdAt DateTime @default(now())
@@ -50,14 +51,15 @@ model Client {
 }
 
 model UC {
-  id        Int     @id @unique
+  id        Int @id @default(autoincrement()) 
+  registerN String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 
   client Client @relation(fields: [clientId], references: [id])
-  clientId Int
+  clientId Int  
 
   bills Bill[]
 }

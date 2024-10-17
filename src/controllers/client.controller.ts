@@ -27,6 +27,7 @@ class ClientController {
 
   createClient = async (req: Request, res: Response) => {
     const client = req.body;
+    console.log(client)
     try {
       const newClient = await this.clientService.createClient(client);
       res.status(201).send(newClient);

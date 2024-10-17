@@ -28,16 +28,16 @@
      *     Client:
      *       type: object
      *       properties:
-     *         id:
-     *           type: integer
+     *         registerN:
+     *           type: string
      *         name:
      *           type: string
      *     ClientFull:
      *        type: object
      *        properties:
-     *          id:
-     *            type: integer
      *          name:
+     *            type: string
+     *          registerN:
      *            type: string
      *          createdAt:
      *            type: string
@@ -54,8 +54,8 @@
      *     Uc:
      *       type: object
      *       properties:
-     *         id:
-     *           type: integer
+     *         registerN:
+     *           type: string
      *         createdAt:
      *           type: string
      *         updatedAt:
@@ -71,8 +71,6 @@
      *     Bill:
      *       type: object
      *       properties:
-     *         id:
-     *           type: integer
      *         month:
      *           type: integer
      *         year:

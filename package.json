@@ -9,7 +9,12 @@
     "db:migrate": "npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
     "db:push": "npx prisma db push"
   },
-  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
+  "exclude": [
+    "./coverage",
+    "./dist",
+    "__tests__",
+    "jest.config.js"
+  ],
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -37,6 +42,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.21.0",
+    "class-validator": "^0.14.1",
     "express": "^4.21.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"

@@ -12,27 +12,38 @@ CREATE TABLE "Bill" (
     "electricityPublicCost" DECIMAL(65,30) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "clientId" INTEGER NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "ucId" INTEGER NOT NULL,
 
     CONSTRAINT "Bill_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Client" (
-    "id" INTEGER NOT NULL,
-    "clientUC" INTEGER NOT NULL,
+    "id" SERIAL NOT NULL,
+    "registerN" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "Client_id_key" ON "Client"("id");
+-- CreateTable
+CREATE TABLE "UC" (
+    "id" SERIAL NOT NULL,
+    "registerN" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "clientId" INTEGER NOT NULL,
 
--- CreateIndex
-CREATE UNIQUE INDEX "Client_clientUC_key" ON "Client"("clientUC");
+    CONSTRAINT "UC_pkey" PRIMARY KEY ("id")
+);
 
 -- AddForeignKey
-ALTER TABLE "Bill" ADD CONSTRAINT "Bill_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Bill" ADD CONSTRAINT "Bill_ucId_fkey" FOREIGN KEY ("ucId") REFERENCES "UC"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UC" ADD CONSTRAINT "UC_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
