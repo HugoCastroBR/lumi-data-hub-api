@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 import swaggerUi from "swagger-ui-express";
 import swagger from "./utils/swagger";
 
-import healthCheck from "./routes/health";
+import healthCheck from "./routes/health.router";
 import clientModule from "./modules/client.module";
 
 

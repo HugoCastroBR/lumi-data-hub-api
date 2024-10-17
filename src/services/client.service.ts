@@ -33,6 +33,29 @@ class ClientService {
     })
     return newClient;
   }
+
+  async updateClient(client: IClient) {
+    const updatedClient = await prisma.client.update({
+      where: {
+        id: client.id,
+      },
+      data: {
+        name: client.name,
+        createdAt: client.createdAt,
+        updatedAt: client.updatedAt,
+      }
+    })
+    return updatedClient;
+  }
+
+  async deleteClient(id: number) {
+    const deletedClient = await prisma.client.delete({
+      where: {
+        id: id,
+      }
+    })
+    return deletedClient;
+  }
 }
 
 
