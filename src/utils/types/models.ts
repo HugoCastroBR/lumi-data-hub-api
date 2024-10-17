@@ -8,6 +8,8 @@ export interface IUC {
   deletedAt?: Date;
   bills?: IBill[];
 }
+export type PartialUC = Partial<IUC>
+
 
 export interface IClient {
   id: number;
@@ -18,10 +20,7 @@ export interface IClient {
   deletedAt?: Date;
   ucs?: IUC[];
 }
-
 export type PartialClient = Partial<IClient>;
-
-
 
 export interface IBill {
   id: number;
@@ -40,5 +39,6 @@ export interface IBill {
   uc: IUC;
   ucId: number;
 }
+export type PartialBill = Partial<IBill>;
 
-export type PartialUC = Partial<IUC>
+

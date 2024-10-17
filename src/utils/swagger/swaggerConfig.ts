@@ -96,12 +96,43 @@
      *           type: number
      *         electricityPublicCost:
      *           type: number
+     * 
+     *     BillFull:
+     *       type: object
+     *       properties:
+     *         id:
+     *           type: integer
+     *         month:
+     *           type: integer
+     *         year:
+     *           type: integer
+     *         electricity:
+     *           type: number
+     *         electricityCost:
+     *           type: number
+     *         electricityScee:
+     *           type: number
+     *         electricitySceeCost:
+     *           type: number
+     *         electricityCompensated:
+     *           type: number
+     *         electricityCompensatedCost:
+     *           type: number
+     *         electricityPublicCost:
+     *           type: number
      *         createdAt:
      *           type: string
      *         updatedAt:
      *           type: string
      *         deletedAt:
      *           type: string
+     *         uc:
+     *           oneOf:
+     *               - $ref: '#/components/schemas/Uc' #
+     *               - type: object #
+     *         ucId:
+     *           type: integer
+     * 
      * /clients:
      *   get:
      *     tags: [Client]
@@ -284,4 +315,92 @@
      *         description: Uc not found
      * 
      * 
+     * 
+     * /bills:
+     *   get:
+     *     tags: [Bill]
+     *     summary: Returns an array of Bills
+     *     responses:
+     *       200:
+     *         description: A successful response
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/BillFull'
+     *   post:
+     *     tags: [Bill]
+     *     summary: Create a new Bill
+     *     responses:
+     *       201:
+     *         description: Successful creation
+     *       409:
+     *         description: UC Already Exist
+     *     requestBody:
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Bill'
+     * /bills/{id}:
+     *   get:
+     *     tags: [Bill]
+     *     summary: Returns a Bill by id
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       200:
+     *         description: A successful response
+     *         content:
+     *           application/json:
+     *             schema:  
+     *               $ref: '#/components/schemas/BillFull'
+     *       404:
+     *         description: Bill not found
+     * 
+     *   put:
+     *     tags: [Bill]
+     *     summary: Update a Bill
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     requestBody:
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Bill'
+     *     responses:
+     *       200:
+     *         description: Successful update
+     *         content:
+     *           application/json:
+     *             schema: {$ref: '#/components/schemas/BillFull'}
+     *       404:
+     *         description: Bill not found
+     * 
+     *   delete:
+     *     tags: [Bill]
+     *     summary: Delete a Bill
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *     responses:
+     *       204:
+     *         description: No content
+     *         content:
+     *           application/json:
+     *             schema:  
+     *               type: object
+     *       404:
+     *         description: Bill not found
      */

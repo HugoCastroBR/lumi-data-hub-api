@@ -29,7 +29,6 @@ class ClientController {
 
 
     const client = req.body;
-    console.log("1")
     try {
       const newClient = await this.clientService.createClient(client);
       console.log(2)

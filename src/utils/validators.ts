@@ -1,4 +1,4 @@
-import { IClient, IUC } from "./types/models";
+import { IClient, IUC,IBill } from "./types/models";
 
 const verifyIfClientIsValid = (client: IClient) => {
   expect(client.id).toBeDefined();
@@ -18,7 +18,33 @@ const verifyIfUCIsValid = (uc: IUC) => {
 };
 
 
+const verifyIfBillIsValid = (bill: IBill) => {
+  expect(bill.id).toBeDefined();
+  expect(bill.month).toBeDefined();
+  expect(bill.year).toBeDefined();
+  
+  expect(bill.electricity).toBeDefined();
+  expect(bill.electricityCost).toBeDefined();
+
+  expect(bill.electricityScee).toBeDefined();
+  expect(bill.electricitySceeCost).toBeDefined();
+
+  expect(bill.electricityCompensated).toBeDefined();
+  expect(bill.electricityCompensatedCost).toBeDefined();
+
+  expect(bill.electricityPublicCost).toBeDefined();
+
+  expect(bill.createdAt).toBeDefined();
+  expect(bill.updatedAt).toBeDefined();
+  
+  expect(bill.deletedAt).toBeUndefined(); 
+
+  expect(bill.ucId).toBeDefined(); 
+};
+
+
 export {
   verifyIfClientIsValid,
-  verifyIfUCIsValid
+  verifyIfUCIsValid,
+  verifyIfBillIsValid
 };
