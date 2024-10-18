@@ -13,6 +13,7 @@ class BillRouter {
 
   getRouter() {
     const router = express.Router();
+    
     router.post('/bills', (req, res, next) => {
       uploadBill(req, res, next);
     },

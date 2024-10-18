@@ -3,6 +3,16 @@ import fs from 'fs/promises';
 import pdf from 'pdf-parse';
 import { IBill } from "./types/models";
 
+const uploadFolder = process.env.UPLOAD_FILES_DIR || "";
+
+async function createUploadsFolderIfNotExists() {
+  try {
+    await fs.mkdir(uploadFolder, { recursive: true });
+  } catch (error) {
+    console.error('Error creating uploads folder:', error);
+  }
+}
+
 async function readFileAsBuffer(filePath: string): Promise<Buffer> {
   try {
     const resolvedPath = path.resolve(filePath);
@@ -128,6 +138,6 @@ async function extractDataFromPDF(pdfPath: string) {
 
 
 
-export { readFileAsBuffer, extractDataFromPDF,monthToNumber };
+export { readFileAsBuffer, extractDataFromPDF,monthToNumber,createUploadsFolderIfNotExists };
 
 

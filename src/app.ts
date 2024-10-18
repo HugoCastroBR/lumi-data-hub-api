@@ -6,6 +6,7 @@ import swagger from "./utils/swagger/swagger";
 import healthCheck from "./routes/health.router";
 import ucModule from "./modules/uc.module";
 import billModule from "./modules/bill.module";
+import { createUploadsFolderIfNotExists } from "./utils/files";
 
 
 export const prisma = new PrismaClient();
@@ -21,6 +22,7 @@ app.use('/health', healthCheck);
 app.use(billModule.router)
 app.use(ucModule.router);
 
+createUploadsFolderIfNotExists();
 
 
 app.all("*", (req: Request, res: Response) => {

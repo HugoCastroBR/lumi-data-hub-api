@@ -1,14 +1,25 @@
+import fs from 'fs/promises';
 import { IBill } from '../../utils/types/models'; 
 import request from "supertest";
 import app from "../../app";
 import { verifyIfBillIsValid } from "../../utils/validators"; 
+import { createUploadsFolderIfNotExists } from '../../utils/files';
 
 describe("Bill", () => {
 
   let billId: number;
 
+  describe("Should verify if the upload folder exists", () => {
+    it("Should find the uploads folder", async () => {
+      fs.access(`data/uploads`).then(() => {}).catch((err) => {
+        expect(err).toBeUndefined();
+      });
+    });
+  })
   describe("Should upload a file to uploads folder", () => {
-    it("Should return a 200 status", async () => {
+    
+    it("Should return a 201 status", async () => {
+      await createUploadsFolderIfNotExists();
       const res = await request(app)
         .post("/bills")
         .attach("file", "src/__tests__/mock/test.pdf")
@@ -20,6 +31,31 @@ describe("Bill", () => {
       expect(res.statusCode).toBe(201);
     });
   });
+
+  describe("Verify Folder and File", () => {
+    it("Should find the file in the uploads folder", async () => {
+      fs.access(`data/uploads/test.pdf`).then(() => {}).catch((err) => {
+        expect(err).toBeUndefined();
+      });
+    });
+    it("Should compare the file size", async () => {
+      const file = await fs.readFile("src/__tests__/mock/test.pdf");
+      const uploadedFile = await fs.readFile(`data/uploads/test.pdf`);
+      expect(file.byteLength).toBe(uploadedFile.byteLength);
+    });
+
+    it("Should compare the file content", async () => {
+      const file = await fs.readFile("src/__tests__/mock/test.pdf");
+      const uploadedFile = await fs.readFile(`data/uploads/test.pdf`);
+      expect(file).toEqual(uploadedFile);
+    });
+
+    it("Should delete the file", async () => {
+      fs.unlink(`data/uploads/test.pdf`).then(() => {}).catch((err) => {
+        expect(err).toBeUndefined();
+      });
+    });
+  })
 
   describe("Get a bill by id", () => {
     it("should return a 200 status and JSON content type", async () => {
