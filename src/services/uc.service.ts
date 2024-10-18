@@ -174,24 +174,6 @@ class UcService {
   }
   
 
-  // async createUc(uc: IUC) {
-  //   try {
-  //     const newUc = await prisma.uC.create({
-  //       data: {
-  //         registerN: uc.registerN,
-  //         client:{
-  //           connect: {
-  //             id: uc.clientId
-  //           }
-  //         }
-  //       },
-  //     });
-  //     return newUc; 
-  //   } catch (error) {
-  //     console.error('Error creating UC:', error);
-  //     throw new Error('Could not create UC'); 
-  //   }
-  // }
 
   async updateUc(id: number, uc: IUC) {
     const ucExists = await this.getUcById(id);
@@ -208,9 +190,9 @@ class UcService {
           clientId: uc.clientId,
         },
       });
-      return updatedUc; // Return the updated entry for further use if needed
+      return updatedUc; 
     } catch (error) {
-      throw new Error('Could not update UC'); // Throw a more user-friendly error
+      throw new Error('Could not update UC'); 
     }
   }
 
@@ -227,7 +209,7 @@ class UcService {
       });
     } catch (error) {
       console.error('Error deleting UC:', error);
-      throw new Error('Could not delete UC'); // Throw a more user-friendly error
+      throw new Error('Could not delete UC'); 
     }
   }
 

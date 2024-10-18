@@ -35,7 +35,7 @@ model Bill {
   updatedAt DateTime @updatedAt
   deletedAt DateTime? 
 
-  uc UC @relation(fields: [ucId], references: [id])
+  uc UC @relation(fields: [ucId], references: [id], onDelete: Cascade)
   ucId Int  
   
 }
@@ -60,7 +60,7 @@ model UC {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
 
-  client Client @relation(fields: [clientId], references: [id])
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId Int  
 
   bills Bill[]

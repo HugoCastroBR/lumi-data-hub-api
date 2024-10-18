@@ -89,8 +89,8 @@ async function extractDataFromPDF(pdfPath: string) {
           const compensatedCost = Number(parseNumber(compensatedLine, 6,true));
           const publicContributionCost = Number(parseNumber(publicContributionLine, 4));
           
-          const ucRegisterN = clientDetailsLine.split(' ')[0];
-          const clientUcRegisterN = clientDetailsLine.split(' ')[1];
+          const ucRegisterN = clientDetailsLine.split(' ')[1];
+          const clientUcRegisterN = clientDetailsLine.split(' ')[0];
 
           let clientName = clientNameLine?.replace(/\d+/g, '').trim();
 

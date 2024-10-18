@@ -1,0 +1,11 @@
+-- DropForeignKey
+ALTER TABLE "Bill" DROP CONSTRAINT "Bill_ucId_fkey";
+
+-- DropForeignKey
+ALTER TABLE "UC" DROP CONSTRAINT "UC_clientId_fkey";
+
+-- AddForeignKey
+ALTER TABLE "Bill" ADD CONSTRAINT "Bill_ucId_fkey" FOREIGN KEY ("ucId") REFERENCES "UC"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UC" ADD CONSTRAINT "UC_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE CASCADE ON UPDATE CASCADE;
