@@ -67,24 +67,6 @@ export const updateBillValidator = async (req: Request, res: Response, next: Nex
   }
 };
 
-// export const uploadBill = (req:Request,res:Response,next:NextFunction) => {
-//   try {
-//     console.log(req.file)
-//     if(!req.file){
-//        return res.status(400).json({error: 'File not found'})
-//     }else{
-//       const uploadedFile = req.file;
-//       const fileName = uploadedFile.originalname;
-//       const filePath = uploadedFile.path;
-//       return res.status(200).send({message:"Success"})
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return res.status(400).send({message:error})
-//   }
-  
-// }
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'data/uploads/')
@@ -108,7 +90,6 @@ export const uploadBill = (req:Request,res:Response,next:NextFunction) => {
         next()
       }
     } catch (error) {
-      console.log(error)
       return res.status(400).send({message:error})
     }
   })

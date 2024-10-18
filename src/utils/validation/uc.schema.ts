@@ -1,5 +1,5 @@
 import { IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
-import { PartialUC } from "../types/models"; // Adjust the import according to your project structure
+import { PartialUC } from "../types/models"; 
 
 export class CreateUCValidationSchema implements PartialUC {
   @Length(8, 12)

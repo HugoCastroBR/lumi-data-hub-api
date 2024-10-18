@@ -58,6 +58,15 @@
      *           type: number
      *         registerN:
      *           type: string
+     *     NewUc:
+     *       type: object
+     *       properties:
+     *         clientId:
+     *           type: number
+     *         clientName:
+     *          type: string
+     *         registerN:
+     *           type: string
      *     UcFull:
      *       type: object
      *       properties:
@@ -170,20 +179,6 @@
      *               items:
      *                 $ref: '#/components/schemas/UcFull'
      * 
-     *   post:
-     *     tags: [Uc]
-     *     summary: Create a new Uc
-     *     responses:
-     *       201:
-     *         description: Successful creation
-     *       409:
-     *         description: UC Already Exist
-     *     requestBody:
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/Uc'
-     *      
      * /ucs/{id}:
      *   get:
      *     tags: [Uc]

@@ -14,7 +14,8 @@ const SwaggerOptions = {
       }
     ]
   },
-  apis: ["./src/routes/*.ts","./src/utils/swagger/swaggerConfig.ts"],
+  apis: ["./src/routes/*.ts", "./src/utils/swagger/swaggerConfig.ts"],
 }
+
 const swaggerDocument = swaggerJsdoc(SwaggerOptions);
 export default swaggerDocument;

@@ -1,12 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { IClient } from "../utils/types/models";
 
-
 const prisma = new PrismaClient();
 
 class ClientService {
-
-
   async getAllClients() {
     const clients = await prisma.client.findMany({
       include:{
@@ -19,7 +16,6 @@ class ClientService {
     })
     return clients;
   }
-
 
   async getClientById(id: number) {
     const client = await prisma.client.findUnique({
@@ -39,18 +35,16 @@ class ClientService {
 
   async createClient(client: IClient) {
 
-    console.log(`create ${client}`)
 
     const clientExists = await prisma.client.findUnique({
       where: {
-          registerN: client.registerN // Ensure 'client.registerN' is defined and correct
+          registerN: client.registerN 
       }
     });
   
     if (clientExists) {
       throw new Error("Client already exists");
     } else{
-      console.log(client)
       const newClient = await prisma.client.create({
         data: {
           registerN: client.registerN,

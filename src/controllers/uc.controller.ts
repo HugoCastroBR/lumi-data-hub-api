@@ -1,4 +1,4 @@
-import UcService, { UcOrderBy }  from '../services/uc.service';
+import UcService, { UcOrderBy } from '../services/uc.service';
 import { Request, Response } from "express";
 import { IPagination } from '../utils/types/pagination';
 
@@ -8,7 +8,6 @@ class UcController {
   constructor(ucService: UcService) {
     this.ucService = ucService;
   }
-
   getAllUcs = async (req: Request, res: Response) => {
     try {
       const ucs = await this.ucService.getAllUcs(
@@ -21,41 +20,28 @@ class UcController {
       );
       res.json(ucs);
     } catch (error) {
-      if(error instanceof Error){
+      if (error instanceof Error) {
         res.status(400).send(error.message);
-      }else{
+      } else {
         res.status(500)
-      
+
+      }
     }
-  }
   }
 
   getUcById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const uc = await this.ucService.getUcById(Number(id));
-    if(uc == null){
+    if (uc == null) {
       res.status(404).send("UC not found");
-    }else{
+    } else {
       res.json(uc);
     }
   }
 
-  // createUc = async (req: Request, res: Response) => {
-  //   const uc = req.body;
-  //   try {
-  //     const newUc = await this.ucService.createUc(uc);
-  //     res.status(201).send(newUc);
-  //   } catch (error) {
-  //     if(error instanceof Error){
-  //       res.status(500).send(error.message);
-  //     }else{
-  //       res.status(500)
-  //     }
-  //   }
-  // }
 
   updateUc = async (req: Request, res: Response) => {
-    if(!req.body) {
+    if (!req.body) {
       return res.status(400).send({
         message: "Missing request body."
       })
@@ -63,16 +49,16 @@ class UcController {
 
     const uc = req.body;
     const ucId = Number(req.params.id)
-    
+
     try {
-      const updatedUc = await this.ucService.updateUc(ucId,uc);
+      const updatedUc = await this.ucService.updateUc(ucId, uc);
       res.status(200).send(updatedUc);
     } catch (error) {
-      if(error instanceof Error){
-        if(error.message === "UC not found") {
+      if (error instanceof Error) {
+        if (error.message === "UC not found") {
           res.status(404).send();
         }
-      }else{
+      } else {
         res.status(500)
       }
     }
@@ -84,17 +70,17 @@ class UcController {
       await this.ucService.deleteUc(Number(id));
       res.status(204).send();
     } catch (error) {
-      if(error instanceof Error){
-        if(error.message == "UC not found"){
+      if (error instanceof Error) {
+        if (error.message == "UC not found") {
           res.status(404).send()
         }
-      }else{
+      } else {
         res.status(500)
       }
     }
   }
 
-  
+
 }
 
 export default UcController

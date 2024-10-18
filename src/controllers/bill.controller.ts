@@ -1,4 +1,4 @@
-import BillService from "../services/bill.service"; // Adjust the import path as needed
+import BillService from "../services/bill.service"; 
 import { Request, Response } from "express";
 import { extractDataFromPDF } from "../utils/files";
 
@@ -7,19 +7,17 @@ type billServiceType = InstanceType<typeof BillService>;
 class BillController {
   private billService: billServiceType;
 
-  readBill = async (req: Request, res: Response) => {
-    
+  constructor(billService: billServiceType) {
+    this.billService = billService;
+  }
+
+  private readBill = async (req: Request, res: Response) => {
     if(req.file == undefined){
       res.status(201).send(req.file);
     }else{
       const dataParsed = await extractDataFromPDF(req.file.path);
       return dataParsed;
     }
-    
-  }
-
-  constructor(billService: billServiceType) {
-    this.billService = billService;
   }
 
   getAllBills = async (req: Request, res: Response) => {
@@ -36,11 +34,9 @@ class BillController {
       res.json(bill);
     }
   }
-
   createBill = async (req: Request, res: Response) => {
     try {
       const bill = await this.readBill(req,res);
-      // const newBill = await this.billService.createBill(bill);
       if(!bill) {
         return res.status(400).send("Could not create Bill");
       }

@@ -1,26 +1,21 @@
-import { connect } from 'http2';
 import { PrismaClient } from '@prisma/client';
-import { IClient, IUC } from '../utils/types/models';
+import { IUC } from '../utils/types/models';
 import { IPagination } from '../utils/types/pagination';
 
 const prisma = new PrismaClient();
 
-
-
 export type UcOrderBy = 'id' | 'UcRegisterN' | 'clientName';
 
 class UcService {
-
-
   async getAllUcs(pagination: IPagination<UcOrderBy>) {
     try {
       const PrismaPaginationQuery = {
         skip: (pagination.page - 1) * 10,
         take: 10,
       };
-  
+
       let orderBy = {};
-  
+
       switch (pagination.orderby) {
         case 'clientName':
           orderBy = {
@@ -40,7 +35,7 @@ class UcService {
           };
           break;
       }
-  
+
       const [ucs, count] = await prisma.$transaction([
         prisma.uC.findMany({
           include: {
@@ -90,28 +85,27 @@ class UcService {
           }
         }),
       ]);
-  
+
       return {
         data: ucs,
         ...pagination,
         total: count,
         totalPages: Math.ceil(count / PrismaPaginationQuery.take),
       };
-  
+
     } catch (error) {
-      console.log(error);
       throw new Error('Could not get UCs');
     }
   }
-  
-  async getUcById(id:number) {
+
+  async getUcById(id: number) {
     try {
       const uc = await prisma.uC.findUnique({
         where: {
           id: id
         },
         include: {
-          client:true,
+          client: true,
           bills: true
         }
       })
@@ -121,63 +115,9 @@ class UcService {
     }
   }
 
-
-  async createUc(uc: IUC) {
-    try {
-      const existingUc = await prisma.uC.findUnique({
-        where: {
-          registerN: uc.registerN,
-        },
-      });
-  
-      if (existingUc) {
-        throw new Error('UC already exists');
-      }
-  
-      const existingClient = await prisma.client.findUnique({
-        where: {
-          id: uc.clientId,
-        },
-      });
-  
-      if (existingClient) {
-        const newUc = await prisma.uC.create({
-          data: {
-            registerN: uc.registerN,
-            client: {
-              connect: {
-                id: existingClient.id,
-              },
-            },
-          },
-        });
-        return newUc;
-      } else {
-        const newUc = await prisma.uC.create({
-          data: {
-            registerN: uc.registerN,
-            client: {
-              create: {
-                name: uc.client.name,
-                registerN: uc.client.name
-              },
-            },
-          },
-        });
-  
-        return newUc;
-      }
-    } catch (error) {
-      console.error('Error creating UC:', error);
-      throw new Error('Could not create UC');
-    }
-  }
-  
-
-
   async updateUc(id: number, uc: IUC) {
     const ucExists = await this.getUcById(id);
-    if(!ucExists){
+    if (!ucExists) {
       throw new Error("UC not found");
     }
     try {
@@ -190,15 +130,15 @@ class UcService {
           clientId: uc.clientId,
         },
       });
-      return updatedUc; 
+      return updatedUc;
     } catch (error) {
-      throw new Error('Could not update UC'); 
+      throw new Error('Could not update UC');
     }
   }
 
   async deleteUc(id: number) {
     const ucExists = await this.getUcById(id);
-    if(!ucExists){
+    if (!ucExists) {
       throw new Error("UC not found");
     }
     try {
@@ -209,7 +149,7 @@ class UcService {
       });
     } catch (error) {
       console.error('Error deleting UC:', error);
-      throw new Error('Could not delete UC'); 
+      throw new Error('Could not delete UC');
     }
   }
 

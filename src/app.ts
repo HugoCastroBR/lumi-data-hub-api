@@ -14,13 +14,13 @@ const app:Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(healthCheck);
+
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swagger));
 app.use('/health', healthCheck);
-
-// Routes
 app.use(billModule.router)
 app.use(ucModule.router);
-app.use(healthCheck);
+
 
 
 app.all("*", (req: Request, res: Response) => {

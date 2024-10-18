@@ -1,4 +1,3 @@
-
 export interface IUC {
   id?: number;
   registerN:string;
@@ -10,7 +9,6 @@ export interface IUC {
   client: IClient;
 }
 export type PartialUC = Partial<IUC>
-
 
 export interface IClient {
   id?: number;

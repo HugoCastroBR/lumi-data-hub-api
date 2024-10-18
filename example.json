@@ -1,19 +1,19 @@
-[
-  "Energia ElétricakWh 50 0,95543124 47,75 0,74906000",
-  "Energia SCEE s/ ICMSkWh 456 0,50970610 232,42 0,48733000",
-  "Energia compensada GD IkWh 456 0,48733000 -222,22 0,48733000",
-  "Contrib Ilum Publica Municipal 49,43",
-  "JOSE MESALY FONSECA DE CARVALHO 52024156",
-  "7204076116 3001116735",
-  "JAN/2024 12/02/2024 107,38"
-]
-
-[
-  'Energia ElétricakWh 100 0,95543124 95,52 0,74906000',
-  'Energia SCEE s/ ICMSkWh 2.300 0,50970610 1.172,31 0,48733000',
-  'Energia compensada GD IkWh 2.300 0,48733000 -1.120,85 0,48733000',
-  'Contrib Ilum Publica Municipal 40,45',
-  'Janeiro/202483670000000-0 66620138002-7 91607372233-9 08128696724-5',
-  'CNPJ 31.176.0**/****-**',
-  '7202210726 3001422762'
-]
+{
+  filename: 'data\\uploads\\3001116735-01-2024.pdf',
+  month: 1,
+  year: 2024,
+  electricity: 50,
+  electricityCost: 47.75,
+  electricityScee: 456,
+  electricitySceeCost: 232.42,
+  electricityCompensated: 456,
+  electricityCompensatedCost: -222.22,
+  electricityPublicCost: 49.43,
+  uc: {
+    registerN: '3001116735',
+    client: {
+      name: 'JOSE MESALY FONSECA DE CARVALHO',
+      registerN: '7204076116'
+    }
+  }
+}

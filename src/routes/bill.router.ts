@@ -1,5 +1,5 @@
 import express from "express";
-import BillController from "../controllers/bill.controller"; 
+import BillController from "../controllers/bill.controller";
 import { updateBillValidator, uploadBill } from "../middlewares/bill.middleware";
 
 type billControllerType = InstanceType<typeof BillController>;
@@ -12,17 +12,14 @@ class BillRouter {
   }
 
   getRouter() {
-    
     const router = express.Router();
-
-    router.post('/bills',(req, res,next) => {
-      uploadBill(req, res,next);
+    router.post('/bills', (req, res, next) => {
+      uploadBill(req, res, next);
     },
-    (req,res,next) => {
-      this.billController.createBill(req,res)
-    }
+      (req, res, next) => {
+        this.billController.createBill(req, res)
+      }
     );
-
     router.get("/bills", this.billController.getAllBills);
     router.get("/bills/:id", this.billController.getBillById);
     router.put(
@@ -34,7 +31,6 @@ class BillRouter {
         this.billController.updateBill(req, res);
       }
     );
-
     router.delete("/bills/:id", this.billController.deleteBill);
 
     return router;
