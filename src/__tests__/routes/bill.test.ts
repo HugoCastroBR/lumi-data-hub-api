@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
-import { IBill } from '../../utils/types/models'; 
+import { IBill } from '../../utils/types/models';
 import request from "supertest";
 import app from "../../app";
-import { verifyIfBillIsValid } from "../../utils/validators"; 
+import { verifyIfBillIsValid } from "../../utils/validators";
 import { createUploadsFolderIfNotExists } from '../../utils/files';
 
 describe("Bill", () => {
@@ -11,13 +11,13 @@ describe("Bill", () => {
 
   describe("Should verify if the upload folder exists", () => {
     it("Should find the uploads folder", async () => {
-      fs.access(`data/uploads`).then(() => {}).catch((err) => {
+      fs.access(`data/uploads`).then(() => { }).catch((err) => {
         expect(err).toBeUndefined();
       });
     });
   })
   describe("Should upload a file to uploads folder", () => {
-    
+
     it("Should return a 201 status", async () => {
       await createUploadsFolderIfNotExists();
       const res = await request(app)
@@ -26,7 +26,7 @@ describe("Bill", () => {
         .expect(201)
         .expect("Content-Type", /json/);
 
-        billId = res.body.id;
+      billId = res.body.id;
 
       expect(res.statusCode).toBe(201);
     });
@@ -34,7 +34,7 @@ describe("Bill", () => {
 
   describe("Verify Folder and File", () => {
     it("Should find the file in the uploads folder", async () => {
-      fs.access(`data/uploads/test.pdf`).then(() => {}).catch((err) => {
+      fs.access(`data/uploads/test.pdf`).then(() => { }).catch((err) => {
         expect(err).toBeUndefined();
       });
     });
@@ -51,7 +51,7 @@ describe("Bill", () => {
     });
 
     it("Should delete the file", async () => {
-      fs.unlink(`data/uploads/test.pdf`).then(() => {}).catch((err) => {
+      fs.unlink(`data/uploads/test.pdf`).then(() => { }).catch((err) => {
         expect(err).toBeUndefined();
       });
     });
@@ -93,7 +93,7 @@ describe("Bill", () => {
           electricityCompensatedCost: "100",
           electricityPublicCost: "100",
         })
-        .expect(200); 
+        .expect(200);
 
       expect(res.body.month).toBe(2);
       expect(res.body.year).toBe(2025);
@@ -147,7 +147,7 @@ describe("Bill", () => {
         .expect("Content-Type", /json/)
         .expect(200);
 
-      
+
       expect(res.statusCode).toBe(200);
     });
 

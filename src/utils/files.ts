@@ -17,7 +17,7 @@ async function readFileAsBuffer(filePath: string): Promise<Buffer> {
   try {
     const resolvedPath = path.resolve(filePath);
     const fileBuffer = await fs.readFile(resolvedPath);
-    if((resolvedPath.split('.').pop() || '') !== 'pdf') {
+    if ((resolvedPath.split('.').pop() || '') !== 'pdf') {
       throw new Error('File is not a PDF');
     }
     return fileBuffer;
@@ -27,7 +27,7 @@ async function readFileAsBuffer(filePath: string): Promise<Buffer> {
   }
 }
 
- const monthToNumber = (month: string) => {
+const monthToNumber = (month: string) => {
   switch (month) {
     case 'JAN':
       return 1;
@@ -58,7 +58,6 @@ async function readFileAsBuffer(filePath: string): Promise<Buffer> {
   }
 };
 
-
 async function extractDataFromPDF(pdfPath: string) {
   try {
     const dataBuffer = await fs.readFile(pdfPath);
@@ -78,7 +77,7 @@ async function extractDataFromPDF(pdfPath: string) {
     const sceeLine = findLineByKeyword('Energia SCEE s/ ICMSkWh');
     const compensatedLine = findLineByKeyword('Energia compensada GD IkWh');
     const publicContributionLine = findLineByKeyword('Contrib Ilum Publica Municipal');
-    const clientNameLine = findNextLineByKeyword('Código de Débito ', 3); 
+    const clientNameLine = findNextLineByKeyword('Código de Débito ', 3);
     const clientDetailsLine = findNextLineByKeyword('Nº DO CLIENTE');
     const billMonth = findNextLineByKeyword('Referente a Vencimento', 1);
 
@@ -136,8 +135,6 @@ async function extractDataFromPDF(pdfPath: string) {
   }
 }
 
-
-
-export { readFileAsBuffer, extractDataFromPDF,monthToNumber,createUploadsFolderIfNotExists };
+export { readFileAsBuffer, extractDataFromPDF, monthToNumber, createUploadsFolderIfNotExists };
 
 

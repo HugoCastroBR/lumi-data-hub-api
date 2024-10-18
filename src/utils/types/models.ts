@@ -1,6 +1,6 @@
 export interface IUC {
   id?: number;
-  registerN:string;
+  registerN: string;
   clientId?: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -12,7 +12,7 @@ export type PartialUC = Partial<IUC>
 
 export interface IClient {
   id?: number;
-  registerN:string;
+  registerN: string;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -22,7 +22,7 @@ export interface IClient {
 export type PartialClient = Partial<IClient>;
 
 export interface IBill {
-  id?: number; 
+  id?: number;
   month: number;
   year: number;
   filename: string;

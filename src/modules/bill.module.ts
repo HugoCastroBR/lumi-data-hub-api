@@ -1,6 +1,6 @@
-import BillController from "../controllers/bill.controller"; 
-import BillService from "../services/bill.service"; 
-import BillRouter from "../routes/bill.router"; 
+import BillController from "../controllers/bill.controller";
+import BillService from "../services/bill.service";
+import BillRouter from "../routes/bill.router";
 
 const billService = new BillService();
 const billController = new BillController(billService);

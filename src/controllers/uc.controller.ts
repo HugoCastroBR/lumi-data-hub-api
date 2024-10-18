@@ -39,7 +39,6 @@ class UcController {
     }
   }
 
-
   updateUc = async (req: Request, res: Response) => {
     if (!req.body) {
       return res.status(400).send({

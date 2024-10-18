@@ -10,9 +10,9 @@ describe("Pdf Parse", () => {
     });
 
     it("Should throw an error if the file does not exist", async () => {
-        await expect(readFileAsBuffer("src/__tests__/mock/invalid.pdf")).rejects.toThrow(/no such file or directory/);
-      });
-      
+      await expect(readFileAsBuffer("src/__tests__/mock/invalid.pdf")).rejects.toThrow(/no such file or directory/);
+    });
+
     it("Should throw an error if the file is not a pdf", async () => {
       await expect(readFileAsBuffer("src/__tests__/mock/test.txt")).rejects.toThrow(/no such file or directory/);
     });

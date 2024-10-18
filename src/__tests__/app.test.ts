@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 describe("Health check", () => {
- 
+
   test("Should return a 200 status", async () => {
     const res = await request(app).get("/health").expect(200);
   });

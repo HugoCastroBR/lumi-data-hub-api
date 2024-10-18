@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { IBill } from '../utils/types/models'; 
+import { IBill } from '../utils/types/models';
 
 
 const prisma = new PrismaClient();

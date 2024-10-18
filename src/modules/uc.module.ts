@@ -6,7 +6,7 @@ const ucService = new UcService();
 const ucController = new UcController(ucService);
 const ucRouter = new UcRouter(ucController);
 
-export default{
+export default {
   service: ucService,
   controller: ucController,
   router: ucRouter.getRouter(),

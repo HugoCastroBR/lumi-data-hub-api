@@ -11,10 +11,10 @@ import { createUploadsFolderIfNotExists } from "./utils/files";
 
 export const prisma = new PrismaClient();
 
-const app:Application = express();
+const app: Application = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(healthCheck);
 
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swagger));

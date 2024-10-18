@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 class ClientService {
   async getAllClients() {
     const clients = await prisma.client.findMany({
-      include:{
-        ucs:{
-          include:{
-            bills:true,
+      include: {
+        ucs: {
+          include: {
+            bills: true,
           }
         },
       }
@@ -22,10 +22,10 @@ class ClientService {
       where: {
         id: id,
       },
-      include:{
-        ucs:{
-          include:{
-            bills:true,
+      include: {
+        ucs: {
+          include: {
+            bills: true,
           }
         },
       }
@@ -35,16 +35,15 @@ class ClientService {
 
   async createClient(client: IClient) {
 
-
     const clientExists = await prisma.client.findUnique({
       where: {
-          registerN: client.registerN 
+        registerN: client.registerN
       }
     });
-  
+
     if (clientExists) {
       throw new Error("Client already exists");
-    } else{
+    } else {
       const newClient = await prisma.client.create({
         data: {
           registerN: client.registerN,
@@ -55,10 +54,10 @@ class ClientService {
     }
   }
 
-  async updateClient(clientId:number,client: IClient) {
+  async updateClient(clientId: number, client: IClient) {
     const clientExists = await this.getClientById(clientId);
 
-    if(clientExists){
+    if (clientExists) {
       const updatedClient = await prisma.client.update({
         where: {
           id: clientId,
@@ -70,16 +69,16 @@ class ClientService {
         }
       })
       return updatedClient;
-    }else{
+    } else {
       throw new Error("Client not found");
     }
   }
 
   async deleteClient(id: number) {
     const clientExists = await this.getClientById(id);
-    if(!clientExists){
+    if (!clientExists) {
       throw new Error("Client not found");
-    } 
+    }
     const deletedClient = await prisma.client.delete({
       where: {
         id: id,

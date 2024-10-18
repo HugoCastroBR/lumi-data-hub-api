@@ -1,4 +1,4 @@
-import BillService from "../services/bill.service"; 
+import BillService from "../services/bill.service";
 import { Request, Response } from "express";
 import { extractDataFromPDF } from "../utils/files";
 
@@ -12,9 +12,9 @@ class BillController {
   }
 
   private readBill = async (req: Request, res: Response) => {
-    if(req.file == undefined){
+    if (req.file == undefined) {
       res.status(201).send(req.file);
-    }else{
+    } else {
       const dataParsed = await extractDataFromPDF(req.file.path);
       return dataParsed;
     }
@@ -36,8 +36,8 @@ class BillController {
   }
   createBill = async (req: Request, res: Response) => {
     try {
-      const bill = await this.readBill(req,res);
-      if(!bill) {
+      const bill = await this.readBill(req, res);
+      if (!bill) {
         return res.status(400).send("Could not create Bill");
       }
       const newBill = await this.billService.createBill(bill);

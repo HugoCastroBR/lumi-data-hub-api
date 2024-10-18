@@ -5,8 +5,6 @@ import { verifyIfUCIsValid } from "../../utils/validators";
 
 describe("UC", () => {
 
-
-
   describe("Get all UCs", () => {
     it("should return a 200 status and JSON content type", async () => {
       const res = await request(app)

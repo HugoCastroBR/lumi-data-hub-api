@@ -1,6 +1,6 @@
-import { validateOrReject, ValidationError } from 'class-validator';
+import { validateOrReject } from 'class-validator';
 import { Request, Response, NextFunction } from 'express';
-import { CreateUCValidationSchema, UpdateUCValidationSchema } from '../utils/validation/uc.schema'; 
+import { UpdateUCValidationSchema } from '../utils/validation/uc.schema';
 
 export const updateUcValidator = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.body) {
