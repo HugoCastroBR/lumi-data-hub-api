@@ -45,50 +45,6 @@ const monthToNumber = (month: string) => {
   }
 };
 
-async function oextractDataFromPDF(pdfPath: string) {
-    try {
-        const dataBuffer = await fs.readFile(pdfPath);
-        const data = await pdf(dataBuffer);
-        const formatData = data.text.split('\n').map((item: string) => {
-          return item.replace(/\s+/g, ' ').trim();
-        })
-        const relevantBillData = [
-          formatData[5],
-          formatData[6],
-          formatData[7],
-          formatData[8],
-          formatData[32], 
-          formatData[39],
-          formatData[41],           
-        ]
-
-        console.log(relevantBillData);
-        
-        const BillFormattedData:IBill = {
-          filename: pdfPath,
-          month: monthToNumber(relevantBillData[6].split(' ')[0].replace(',','.').split('/')[0]),
-          year: Number(relevantBillData[6].split(' ')[0].replace(',','.').split('/')[1]),
-          electricity: Number(relevantBillData[0].split(' ')[2].replace(',','.')),
-          electricityCost: Number(relevantBillData[0].split(' ')[4].replace(',','.')),
-          electricityScee: Number(relevantBillData[1].split(' ')[4].replace(',','.')),
-          electricitySceeCost: Number(relevantBillData[1].split(' ')[6].replace(',','.')),
-          electricityCompensated: Number(relevantBillData[2].split(' ')[4].replace(',','.')),
-          electricityCompensatedCost: Number(relevantBillData[2].split(' ')[6].replace(',','.')),
-          electricityPublicCost: Number(relevantBillData[3].split(' ')[4].replace(',','.')),
-          uc:{
-            registerN: relevantBillData[5].split(' ')[1],
-            client: {
-              name: relevantBillData[4].replace(/\d+/g, '').trim(),
-              registerN: relevantBillData[5].split(' ')[0]
-            }
-          }
-        }
-        return formatData;
-    } catch (error) {
-        console.error('Error parsing PDF:', error);
-    }
-}
-
 
 
 async function extractDataFromPDF(pdfPath: string) {

@@ -44,13 +44,13 @@ class BillController {
       if(!bill) {
         return res.status(400).send("Could not create Bill");
       }
-      // const newBill = await this.billService.createBill(bill);
-      res.status(201).send(bill);
+      const newBill = await this.billService.createBill(bill);
+      res.status(201).send(newBill);
 
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
-        res.status(500).send("Could not create Bill");
+        res.status(400).send(error.message);
       }
     }
   }

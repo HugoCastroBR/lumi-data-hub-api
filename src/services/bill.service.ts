@@ -34,6 +34,16 @@ class BillService {
 
   async createBill(bill: IBill) {
 
+    const verifyIfBillExists = await prisma.bill.findUnique({
+      where: {
+        filename: bill.filename
+      }
+    });
+
+    if(verifyIfBillExists != null){
+      throw new Error("Bill already exists");
+    }
+
     const getUC = await prisma.uC.findUnique({
       where: {
         registerN: bill.uc.registerN
