@@ -1,30 +1,30 @@
 
 export interface IUC {
-  id: number;
+  id?: number;
   registerN:string;
-  clientId: number;
-  createdAt: Date;
-  updatedAt: Date;
+  clientId?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date;
   bills?: IBill[];
-  client?: Partial<IClient>;
+  client: IClient;
 }
 export type PartialUC = Partial<IUC>
 
 
 export interface IClient {
-  id: number;
+  id?: number;
   registerN:string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   deletedAt?: Date;
   ucs?: Partial<IUC>[];
 }
 export type PartialClient = Partial<IClient>;
 
 export interface IBill {
-  id: number;
+  id?: number;
   month: number;
   year: number;
   filename: string;
@@ -38,7 +38,7 @@ export interface IBill {
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
-  uc: Partial<IUC>;
+  uc: IUC;
   ucId?: number;
 }
 export type PartialBill = Partial<IBill>;

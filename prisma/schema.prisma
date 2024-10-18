@@ -18,7 +18,7 @@ model Bill {
   month     Int
   year      Int
 
-  filename String 
+  filename String @unique
 
   electricity Decimal
   electricityCost Decimal

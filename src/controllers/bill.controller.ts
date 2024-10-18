@@ -13,7 +13,7 @@ class BillController {
       res.status(201).send(req.file);
     }else{
       const dataParsed = await extractDataFromPDF(req.file.path);
-      res.status(201).send(dataParsed);
+      return dataParsed;
     }
     
   }
@@ -38,10 +38,15 @@ class BillController {
   }
 
   createBill = async (req: Request, res: Response) => {
-    const bill = req.body;
     try {
-      const newBill = await this.billService.createBill(bill);
-      res.status(201).send(newBill);
+      const bill = await this.readBill(req,res);
+      // const newBill = await this.billService.createBill(bill);
+      if(!bill) {
+        return res.status(400).send("Could not create Bill");
+      }
+      // const newBill = await this.billService.createBill(bill);
+      res.status(201).send(bill);
+
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

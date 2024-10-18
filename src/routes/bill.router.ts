@@ -19,7 +19,7 @@ class BillRouter {
       uploadBill(req, res,next);
     },
     (req,res,next) => {
-      this.billController.readBill(req,res)
+      this.billController.createBill(req,res)
     }
     );
 

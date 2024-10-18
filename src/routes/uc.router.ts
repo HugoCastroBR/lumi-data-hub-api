@@ -1,7 +1,6 @@
 import express from 'express';
 import UcController from '../controllers/uc.controller'
-import { createUcValidator } from '../middlewares/uc.middleware';
-import { updateClientValidator } from '../middlewares/client.middleware';
+import { createUcValidator, updateUcValidator } from '../middlewares/uc.middleware';
 
 type ucControllerType = InstanceType<typeof UcController>;
 
@@ -16,17 +15,17 @@ class UcRouter {
     const router = express.Router();
     router.get("/ucs",this.ucController.getAllUcs)
     router.get("/ucs/:id",this.ucController.getUcById)
-    router.post("/ucs",
-      (req,res,next) => {
-        createUcValidator(req,res,next)
-      },
-      (req,res) => {
-        this.ucController.createUc(req,res)
-      }
-    )
+    // router.post("/ucs",
+    //   (req,res,next) => {
+    //     createUcValidator(req,res,next)
+    //   },
+    //   (req,res) => {
+    //     this.ucController.createUc(req,res)
+    //   }
+    // )
     router.put("/ucs/:id",
       (req,res,next) => {
-        updateClientValidator(req,res,next)
+        updateUcValidator(req,res,next)
       },
       (req,res) => {
         this.ucController.updateUc(req,res)

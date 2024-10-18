@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { IUC } from '../utils/types/models';
+import { IClient, IUC } from '../utils/types/models';
 
 const prisma = new PrismaClient();
 
@@ -33,20 +33,21 @@ class UcService {
     
   }
 
-  async createUc(uc: IUC) {
-    try {
-      const newUc = await prisma.uC.create({
-        data: {
-          registerN: uc.registerN,
-          clientId: uc.clientId,
-        },
-      });
-      return newUc; // Return the created entry for further use if needed
-    } catch (error) {
-      console.error('Error creating UC:', error);
-      throw new Error('Could not create UC'); // Throw a more user-friendly error
-    }
-  }
+  // async createUc(uc: IUC) {
+  //   try {
+  //     const newUc = await prisma.uC.create({
+  //       data: {
+  //         registerN: uc.registerN,
+  //         clientId: uc.clientId,
+  //         client: {} 
+  //       },
+  //     });
+  //     return newUc; // Return the created entry for further use if needed
+  //   } catch (error) {
+  //     console.error('Error creating UC:', error);
+  //     throw new Error('Could not create UC'); // Throw a more user-friendly error
+  //   }
+  // }
 
   async updateUc(id: number, uc: IUC) {
     const ucExists = await this.getUcById(id);

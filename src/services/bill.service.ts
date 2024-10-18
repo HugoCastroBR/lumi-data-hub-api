@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { IBill } from '../utils/types/models'; // Adjust the import path as needed
+import { connect } from 'http2';
+import { create } from 'domain';
 
 const prisma = new PrismaClient();
 
@@ -31,7 +33,90 @@ class BillService {
   }
 
   async createBill(bill: IBill) {
-    try {
+
+    const getUC = await prisma.uC.findUnique({
+      where: {
+        registerN: bill.uc.registerN
+      },include: {
+        client:{
+          include: {
+            ucs:true
+          }
+        }
+      }
+    });
+
+    if(getUC != null){
+      console.log(getUC);
+      const newBill = await prisma.bill.create({
+        data: {
+          month: bill.month,
+          year: bill.year || 2024,
+          filename: bill.filename,
+          electricity: bill.electricity,
+          electricityCost: bill.electricityCost,
+          electricityScee: bill.electricityScee,
+          electricitySceeCost: bill.electricitySceeCost || 0,
+          electricityCompensated: bill.electricityCompensated,
+          electricityCompensatedCost: bill.electricityCompensatedCost || 0,
+          electricityPublicCost: bill.electricityPublicCost,
+          uc:{
+            connect: {
+              id: getUC.id
+            }
+          }
+        },
+      });
+      return newBill;
+    }else{
+      const getClient = await prisma.client.findFirst({
+        where: {
+          name: bill.uc.client.name
+        },
+        include: {
+          ucs:true
+        }
+      });
+
+      if(getClient != null){
+        const newUC = await prisma.uC.create({
+          data: {
+            registerN: bill.uc.registerN,
+            clientId: getClient.id
+          }
+        });
+
+        const newBill = await prisma.bill.create({
+          data: {
+            month: bill.month,
+            year: bill.year,
+            filename: bill.filename,
+            electricity: bill.electricity,
+            electricityCost: bill.electricityCost,
+            electricityScee: bill.electricityScee,
+            electricitySceeCost: bill.electricitySceeCost,
+            electricityCompensated: bill.electricityCompensated,
+            electricityCompensatedCost: bill.electricityCompensatedCost,
+            electricityPublicCost: bill.electricityPublicCost,
+            ucId: newUC.id, 
+          },
+        });
+        return newBill;
+    }else{
+      const newClient = await prisma.client.create({
+        data: {
+          name: bill.uc.client.name,
+          registerN: bill.uc.client.registerN
+        }
+      });
+
+      const newUC = await prisma.uC.create({
+        data: {
+          registerN: bill.uc.registerN,
+          clientId: newClient.id,
+        },
+      });
+
       const newBill = await prisma.bill.create({
         data: {
           month: bill.month,
@@ -44,10 +129,34 @@ class BillService {
           electricityCompensated: bill.electricityCompensated,
           electricityCompensatedCost: bill.electricityCompensatedCost,
           electricityPublicCost: bill.electricityPublicCost,
-          ucId: bill.ucId || 0, 
+          ucId: newUC.id,
         },
       });
-      return newBill; 
+      return newBill;
+    }
+  }
+    
+    
+    try {
+
+      
+
+      // const newBill = await prisma.bill.create({
+      //   data: {
+      //     month: bill.month,
+      //     year: bill.year,
+      //     filename: bill.filename,
+      //     electricity: bill.electricity,
+      //     electricityCost: bill.electricityCost,
+      //     electricityScee: bill.electricityScee,
+      //     electricitySceeCost: bill.electricitySceeCost,
+      //     electricityCompensated: bill.electricityCompensated,
+      //     electricityCompensatedCost: bill.electricityCompensatedCost,
+      //     electricityPublicCost: bill.electricityPublicCost,
+      //     ucId: bill.ucId || 0, 
+      //   },
+      // });
+      // return newBill; 
     } catch (error) {
       console.error('Error creating Bill:', error);
       throw new Error('Could not create Bill'); 

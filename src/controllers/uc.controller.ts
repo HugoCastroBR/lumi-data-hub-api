@@ -23,19 +23,19 @@ class UcController {
     }
   }
 
-  createUc = async (req: Request, res: Response) => {
-    const uc = req.body;
-    try {
-      const newUc = await this.ucService.createUc(uc);
-      res.status(201).send(newUc);
-    } catch (error) {
-      if(error instanceof Error){
-        res.status(500).send(error.message);
-      }else{
-        res.status(500)
-      }
-    }
-  }
+  // createUc = async (req: Request, res: Response) => {
+  //   const uc = req.body;
+  //   try {
+  //     const newUc = await this.ucService.createUc(uc);
+  //     res.status(201).send(newUc);
+  //   } catch (error) {
+  //     if(error instanceof Error){
+  //       res.status(500).send(error.message);
+  //     }else{
+  //       res.status(500)
+  //     }
+  //   }
+  // }
 
   updateUc = async (req: Request, res: Response) => {
     if(!req.body) {
