@@ -135,102 +135,31 @@
      *         ucId:
      *           type: integer
      * 
-     * /clients:
-     *   get:
-     *     tags: [Client]
-     *     summary: Returns an array of clients
-     *     responses:
-     *       200:
-     *         description: A successful response
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: array
-     *               items:
-     *                 $ref: '#/components/schemas/ClientFull'
-     *   post:
-     *     tags: [Client]
-     *     summary: Create a new client
-     *     responses:
-     *       201:
-     *         description: Successful creation
-     *       409:
-     *         description: Client Already Exist
-     *     requestBody:
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/Client'
-     *      
-     * 
-     * /clients/{id}:
-     *   get:
-     *     tags: [Client]
-     *     summary: Returns a client by id
-     *     parameters:
-     *       - in: path
-     *         name: id
-     *         required: true
-     *         schema:
-     *           type: integer
-     *     responses:
-     *       200:
-     *         description: A successful response
-     *         content:
-     *           application/json:
-     *             schema:  
-     *               $ref: '#/components/schemas/ClientFull'
-     *       404:
-     *         description: Client not found
-     * 
-     *   put:
-     *     tags: [Client]
-     *     summary: Update a client
-     *     parameters:
-     *       - in: path
-     *         name: id
-     *         required: true
-     *         schema:
-     *           type: integer
-     *     requestBody:
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/Client'
-     *     responses:
-     *       200:
-     *         description: Successful update
-     *         content:
-     *           application/json:
-     *             schema: {$ref: '#/components/schemas/ClientFull'}
-     *       404:
-     *         description: Client not found
-     * 
-     *   delete:
-     *     tags: [Client]
-     *     summary: Delete a client
-     *     parameters:
-     *       - in: path
-     *         name: id
-     *         required: true
-     *         schema:
-     *           type: integer
-     *     responses:
-     *       204:
-     *         description: No content
-     *         content:
-     *           application/json:
-     *             schema:  
-     *               type: object
-     *       404:
-     *         description: Client not found
-     * 
-     * 
-     * 
      * /ucs:
      *   get:
      *     tags: [Uc]
      *     summary: Returns an array of Ucs
+     *     parameters:
+     *       - in: query
+     *         name: page
+     *         required: false
+     *         schema:
+     *           type: integer
+     *       - in: query
+     *         name: orderby
+     *         required: false
+     *         schema:
+     *           type: string
+     *       - in: query
+     *         name: order
+     *         required: false
+     *         schema:
+     *           type: string
+     *       - in: query
+     *         name: search
+     *         required: false
+     *         schema:
+     *           type: string
      *     responses:
      *       200:
      *         description: A successful response
@@ -240,6 +169,7 @@
      *               type: array
      *               items:
      *                 $ref: '#/components/schemas/UcFull'
+     * 
      *   post:
      *     tags: [Uc]
      *     summary: Create a new Uc

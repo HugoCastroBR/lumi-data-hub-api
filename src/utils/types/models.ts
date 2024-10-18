@@ -24,7 +24,7 @@ export interface IClient {
 export type PartialClient = Partial<IClient>;
 
 export interface IBill {
-  id?: number;
+  id?: number; 
   month: number;
   year: number;
   filename: string;

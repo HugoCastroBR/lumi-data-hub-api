@@ -1,20 +1,109 @@
+import { connect } from 'http2';
 import { PrismaClient } from '@prisma/client';
 import { IClient, IUC } from '../utils/types/models';
+import { IPagination } from '../utils/types/pagination';
 
 const prisma = new PrismaClient();
 
+
+
+export type UcOrderBy = 'id' | 'UcRegisterN' | 'clientName';
+
 class UcService {
 
-  async getAllUcs() {
-    const ucs = await prisma.uC.findMany({
-      include: {
-        client:true,
-        bills: true
-      }
-    })
-    return ucs
-  }
 
+  async getAllUcs(pagination: IPagination<UcOrderBy>) {
+    try {
+      const PrismaPaginationQuery = {
+        skip: (pagination.page - 1) * 10,
+        take: 10,
+      };
+  
+      let orderBy = {};
+  
+      switch (pagination.orderby) {
+        case 'clientName':
+          orderBy = {
+            client: {
+              name: pagination.order,
+            },
+          };
+          break;
+        case 'UcRegisterN':
+          orderBy = {
+            registerN: pagination.order,
+          };
+          break;
+        default:
+          orderBy = {
+            [pagination.orderby]: pagination.order,
+          };
+          break;
+      }
+  
+      const [ucs, count] = await prisma.$transaction([
+        prisma.uC.findMany({
+          include: {
+            client: true,
+            bills: true,
+          },
+          ...PrismaPaginationQuery,
+          orderBy,
+          where: {
+            OR: [
+              {
+                registerN: {
+                  contains: pagination.search,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                client: {
+                  name: {
+                    contains: pagination.search,
+                    mode: 'insensitive',
+                  },
+                },
+              },
+            ],
+          }
+        }),
+        prisma.uC.count({
+          ...PrismaPaginationQuery,
+          where: {
+            OR: [
+              {
+                registerN: {
+                  contains: pagination.search,
+                  mode: 'insensitive',
+                },
+              },
+              {
+                client: {
+                  name: {
+                    contains: pagination.search,
+                    mode: 'insensitive',
+                  },
+                },
+              },
+            ],
+          }
+        }),
+      ]);
+  
+      return {
+        data: ucs,
+        ...pagination,
+        total: count,
+        totalPages: Math.ceil(count / PrismaPaginationQuery.take),
+      };
+  
+    } catch (error) {
+      console.log(error);
+      throw new Error('Could not get UCs');
+    }
+  }
+  
   async getUcById(id:number) {
     try {
       const uc = await prisma.uC.findUnique({
@@ -30,22 +119,77 @@ class UcService {
     } catch (error) {
       return []
     }
-    
   }
+
+
+  async createUc(uc: IUC) {
+    try {
+      const existingUc = await prisma.uC.findUnique({
+        where: {
+          registerN: uc.registerN,
+        },
+      });
+  
+      if (existingUc) {
+        throw new Error('UC already exists');
+      }
+  
+      const existingClient = await prisma.client.findUnique({
+        where: {
+          id: uc.clientId,
+        },
+      });
+  
+      if (existingClient) {
+        const newUc = await prisma.uC.create({
+          data: {
+            registerN: uc.registerN,
+            client: {
+              connect: {
+                id: existingClient.id,
+              },
+            },
+          },
+        });
+        return newUc;
+      } else {
+        const newUc = await prisma.uC.create({
+          data: {
+            registerN: uc.registerN,
+            client: {
+              create: {
+                name: uc.client.name,
+                registerN: uc.client.name
+              },
+            },
+          },
+        });
+  
+        return newUc;
+      }
+    } catch (error) {
+      console.error('Error creating UC:', error);
+      throw new Error('Could not create UC');
+    }
+  }
+  
 
   // async createUc(uc: IUC) {
   //   try {
   //     const newUc = await prisma.uC.create({
   //       data: {
   //         registerN: uc.registerN,
-  //         clientId: uc.clientId,
-  //         client: {} 
+  //         client:{
+  //           connect: {
+  //             id: uc.clientId
+  //           }
+  //         }
   //       },
   //     });
-  //     return newUc; // Return the created entry for further use if needed
+  //     return newUc; 
   //   } catch (error) {
   //     console.error('Error creating UC:', error);
-  //     throw new Error('Could not create UC'); // Throw a more user-friendly error
+  //     throw new Error('Could not create UC'); 
   //   }
   // }
 

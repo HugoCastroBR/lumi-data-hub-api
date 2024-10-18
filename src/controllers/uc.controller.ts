@@ -1,5 +1,6 @@
-import UcService  from '../services/uc.service';
-import e, { Request, Response } from "express";
+import UcService, { UcOrderBy }  from '../services/uc.service';
+import { Request, Response } from "express";
+import { IPagination } from '../utils/types/pagination';
 
 class UcController {
   private ucService: UcService;
@@ -9,8 +10,24 @@ class UcController {
   }
 
   getAllUcs = async (req: Request, res: Response) => {
-    const ucs = await this.ucService.getAllUcs();
-    res.json(ucs);
+    try {
+      const ucs = await this.ucService.getAllUcs(
+        {
+          page: Number(req.query.page) || 1,
+          order: req.query.order || 'asc',
+          orderby: req.query.orderby || 'id',
+          search: req.query.search || '',
+        } as IPagination<UcOrderBy>
+      );
+      res.json(ucs);
+    } catch (error) {
+      if(error instanceof Error){
+        res.status(400).send(error.message);
+      }else{
+        res.status(500)
+      
+    }
+  }
   }
 
   getUcById = async (req: Request, res: Response) => {
