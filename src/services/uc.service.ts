@@ -8,6 +8,9 @@ export type UcOrderBy = 'id' | 'UcRegisterN' | 'clientName';
 
 class UcService {
   async getAllUcs(pagination: IPagination<UcOrderBy>) {
+
+    const year = Number(pagination.year) || Number(new Date().getFullYear());
+
     try {
       const PrismaPaginationQuery = {
         skip: (pagination.page - 1) * 10,
@@ -45,44 +48,66 @@ class UcService {
           ...PrismaPaginationQuery,
           orderBy,
           where: {
-            OR: [
+            AND: [
               {
-                registerN: {
-                  contains: pagination.search,
-                  mode: 'insensitive',
-                },
+                OR: [
+                  {
+                    registerN: {
+                      contains: pagination.search,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    client: {
+                      name: {
+                        contains: pagination.search,
+                        mode: 'insensitive',
+                      },
+                    },
+                  },
+                ],
               },
               {
-                client: {
-                  name: {
-                    contains: pagination.search,
-                    mode: 'insensitive',
+                bills: {
+                  some: {
+                    year: year, 
                   },
                 },
               },
             ],
-          }
+          },
         }),
         prisma.uC.count({
           ...PrismaPaginationQuery,
           where: {
-            OR: [
+            AND: [
               {
-                registerN: {
-                  contains: pagination.search,
-                  mode: 'insensitive',
-                },
+                OR: [
+                  {
+                    registerN: {
+                      contains: pagination.search,
+                      mode: 'insensitive',
+                    },
+                  },
+                  {
+                    client: {
+                      name: {
+                        contains: pagination.search,
+                        mode: 'insensitive',
+                      },
+                    },
+                  },
+                ],
               },
               {
-                client: {
-                  name: {
-                    contains: pagination.search,
-                    mode: 'insensitive',
+                bills: {
+                  some: {
+                    year: year, 
                   },
                 },
               },
             ],
-          }
+          },
         }),
       ]);
 

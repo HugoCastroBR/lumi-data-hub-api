@@ -3,4 +3,5 @@ export interface IPagination<T> {
   orderby: T;
   order: 'asc' | 'desc';
   search?: string;
+  year?: number;
 }

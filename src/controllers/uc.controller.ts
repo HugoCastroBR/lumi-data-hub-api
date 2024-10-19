@@ -16,6 +16,7 @@ class UcController {
           order: req.query.order || 'asc',
           orderby: req.query.orderby || 'id',
           search: req.query.search || '',
+          year: req.query.year || new Date().getFullYear(),
         } as IPagination<UcOrderBy>
       );
       res.json(ucs);

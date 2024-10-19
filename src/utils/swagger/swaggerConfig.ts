@@ -169,6 +169,11 @@
      *         required: false
      *         schema:
      *           type: string
+     *       - in: query
+     *         name: year
+     *         required: false
+     *         schema:
+     *           type: string
      *     responses:
      *       200:
      *         description: A successful response
