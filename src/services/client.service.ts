@@ -16,7 +16,6 @@ class ClientService {
     })
     return clients;
   }
-
   async getClientById(id: number) {
     const client = await prisma.client.findUnique({
       where: {
@@ -87,6 +86,5 @@ class ClientService {
     return deletedClient;
   }
 }
-
 
 export default ClientService;

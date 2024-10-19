@@ -1,19 +1,18 @@
-import { IsInt, IsNotEmpty, IsOptional, Min, IsDecimal, IsString } from "class-validator";
-import { PartialBill } from "../types/models"; 
+import { IsInt, IsOptional, Min, IsDecimal, IsString } from "class-validator";
+import { PartialBill } from "../types/models";
 
 export class CreateBillValidationSchema implements PartialBill {
-  
   @IsInt()
   @Min(1)
   month!: number;
 
   @IsInt()
-  @Min(2000) 
+  @Min(2000)
   year!: number;
 
   @IsString()
   @IsOptional()
-  filename!:string
+  filename!: string
 
   @IsDecimal({ decimal_digits: '0,2' }, { message: 'Must be a decimal number' })
   electricity!: number;
@@ -39,11 +38,10 @@ export class CreateBillValidationSchema implements PartialBill {
   @IsInt()
   @Min(1)
   @IsOptional()
-  ucId!: number;  
+  ucId!: number;
 }
 
 export class UpdateBillValidationSchema extends CreateBillValidationSchema {
-  
   @IsInt()
   @Min(1)
   @IsOptional()
@@ -84,7 +82,6 @@ export class UpdateBillValidationSchema extends CreateBillValidationSchema {
 }
 
 export class GetBillIdValidationSchema implements PartialBill {
-  
   @IsInt()
   @Min(1)
   id!: number;

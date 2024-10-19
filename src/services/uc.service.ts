@@ -70,7 +70,7 @@ class UcService {
               {
                 bills: {
                   some: {
-                    year: year, 
+                    year: year,
                   },
                 },
               },
@@ -102,7 +102,7 @@ class UcService {
               {
                 bills: {
                   some: {
-                    year: year, 
+                    year: year,
                   },
                 },
               },
@@ -110,7 +110,6 @@ class UcService {
           },
         }),
       ]);
-
       return {
         data: ucs,
         ...pagination,

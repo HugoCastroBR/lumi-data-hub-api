@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { IBill } from '../utils/types/models';
 
-
 const prisma = new PrismaClient();
 
 class BillService {
@@ -150,7 +149,6 @@ class BillService {
     if (!billExists) {
       throw new Error("Bill not found");
     }
-
     try {
       const updatedBill = await prisma.bill.update({
         where: {

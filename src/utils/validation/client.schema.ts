@@ -2,7 +2,6 @@ import { IsInt, IsNotEmpty, IsOptional, Length, Min } from "class-validator";
 import { PartialClient } from "../types/models";
 
 export class CreateClientValidationSchema implements PartialClient {
-
   @Length(0, 200)
   @IsNotEmpty()
   name!: string;

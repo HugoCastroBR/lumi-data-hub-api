@@ -7,13 +7,11 @@ export class CreateUCValidationSchema implements PartialUC {
   registerN!: string; 
 }
 
-
 export class UpdateUCValidationSchema extends CreateUCValidationSchema {
   @Length(8,12)
   @IsOptional()
   registerN!: string;
 }
-
 
 export class GetUCIdValidationSchema implements PartialUC {
   @IsInt()
